@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+  <h2>Session Monitor</h2>
+  <p>Activity karo warna logout ho jaoge!</p>
+  <div id="warn" style="display:none; color:red; font-weight:bold;">
+    ⚠️ You will be logged out in 1 minute!
+  </div>
+
+<script>
+  let warnTimer, logoutTimer;
+
+  function startTimers() {
+    clearTimeout(warnTimer);
+    clearTimeout(logoutTimer);
+    document.getElementById("warn").style.display = "none";
+
+    // 2 minutes → warning
+    warnTimer = setTimeout(() => {
+      document.getElementById("warn").style.display = "block";
+    }, 2 * 60 * 1000);
+
+    // 3 minutes → logout
+    logoutTimer = setTimeout(() => {
+      sessionStorage.clear();
+      alert("Logged out due to inactivity!");
+      location.reload();
+    }, 3 * 60 * 1000);
+  }
+
+  // Any user activity → reset timers
+  window.addEventListener("mousemove", startTimers);
+  window.addEventListener("keydown", startTimers);
+
+  startTimers();   // start on page load
+</script>
+</body>
+</html>
