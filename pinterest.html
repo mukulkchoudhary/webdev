@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .gallery {
+    column-count: 3;
+    column-gap: 10px;
+  }
+
+  .gallery img {
+    width: 100%;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    display: block;
+    break-inside: avoid;   /* image ko column ke beech mat todo */
+  }
+
+  @media (max-width: 768px) {
+    .gallery { column-count: 2; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="gallery">
+    <img src="https://picsum.photos/300/200" alt="">
+    <img src="https://picsum.photos/300/300" alt="">
+    <img src="https://picsum.photos/300/150" alt="">
+    <img src="https://picsum.photos/300/250" alt="">
+    <img src="https://picsum.photos/300/180" alt="">
+    <img src="https://picsum.photos/300/280" alt="">
+  </div>
+
+</body>
+</html>
