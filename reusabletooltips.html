@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .tip {
+    position: relative;
+    display: inline-block;
+    margin: 60px;
+    padding: 8px 14px;
+    background: #4a90d9;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .tip::after {
+    content: "Tooltip text";
+    position: absolute;
+    background: #222;
+    color: white;
+    padding: 6px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+
+    /* hidden */
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s ease;
+  }
+
+  /* Arrow (triangle) */
+  .tip::before {
+    content: "";
+    position: absolute;
+    border: 6px solid transparent;
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.2s ease;
+  }
+
+  .tip:hover::after,
+  .tip:hover::before {
+    opacity: 1;
+  }
+
+  /* ===== TOP ===== */
+  .tip.top::after  { bottom: 130%; left: 50%; transform: translateX(-50%); }
+  .tip.top::before {
+    bottom: 100%; left: 50%; transform: translateX(-50%);
+    border-top-color: #222;
+  }
+
+  /* ===== BOTTOM ===== */
+  .tip.bottom::after { top: 130%; left: 50%; transform: translateX(-50%); }
+  .tip.bottom::before {
+    top: 100%; left: 50%; transform: translateX(-50%);
+    border-bottom-color: #222;
+  }
+
+  /* ===== RIGHT ===== */
+  .tip.right::after  { left: 130%; top: 50%; transform: translateY(-50%); }
+  .tip.right::before {
+    left: 100%; top: 50%; transform: translateY(-50%);
+    border-right-color: #222;
+  }
+
+  /* ===== LEFT ===== */
+  .tip.left::after   { right: 130%; top: 50%; transform: translateY(-50%); }
+  .tip.left::before {
+    right: 100%; top: 50%; transform: translateY(-50%);
+    border-left-color: #222;
+  }
+</style>
+</head>
+<body>
+
+  <span class="tip top">Top</span>
+  <span class="tip bottom">Bottom</span>
+  <span class="tip right">Right</span>
+  <span class="tip left">Left</span>
+
+</body>
+</html>
