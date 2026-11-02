@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  .board { display: grid; grid-template-columns: repeat(4, 70px); gap: 10px; }
+  .card {
+    height: 70px; background: #4a90d9; color: transparent;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; cursor: pointer; border-radius: 6px;
+  }
+  .card.flipped { background: #ddd; color: black; }
+  .card.matched { background: #6c6; color: white; cursor: default; }
+</style>
+</head>
+<body>
+
+  <p>Moves: <span id="moves">0</span> | Matches: <span id="matches">0</span></p>
+  <div class="board" id="board"></div>
+  <h2 id="win" style="display:none">🎉 You Win!</h2>
+
+<script>
+  const values = ["A","A","B","B","C","C","D","D"];  // 8 cards = 4 pairs
+  const board = document.getElementById("board");
+  let first = null, lock = false;
+  let moves = 0, matches = 0;
+
+  // Shuffle (Fisher-Yates)
+  function shuffle(arr) {
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }
+
+  // Build board
+  function init() {
+    board.innerHTML = "";
+    first = null; lock = false; moves = 0; matches = 0;
+    document.getElementById("moves").textContent = 0;
+    document.getElementById("matches").textContent = 0;
+    document.getElementById("win").style.display = "none";
+
+    shuffle(values).forEach(v => {
+      const card = document.createElement("div");
+      card.className = "card";
+      card.dataset.value = v;
+      card.textContent = v;
+      card.addEventListener("click", () => flip(card));
+      board.appendChild(card);
+    });
+  }
+
+  function flip(card) {
+    if (lock || card.classList.contains("flipped") || card.classList.contains("matched")) return;
+
+    card.classList.add("flipped");
+
+    if (!first) {
+      first = card;              // pehla card
+      return;
+    }
+
+    moves++;
+    document.getElementById("moves").textContent = moves;
+
+    if (first.dataset.value === card.dataset.value) {
+      // Match
+      first.classList.add("matched");
+      card.classList.add("matched");
+      first = null;
+      matches++;
+      document.getElementById("matches").textContent = matches;
+
+      if (matches === 4) {
+        document.getElementById("win").style.display = "block";
+      }
+    } else {
+      // No match → flip back after delay
+      lock = true;
+      const a = first, b = card;
+      setTimeout(() => {
+        a.classList.remove("flipped");
+        b.classList.remove("flipped");
+        first = null;
+        lock = false;
+      }, 700);
+    }
+  }
+
+  init();
+</script>
+</body>
+</html>
