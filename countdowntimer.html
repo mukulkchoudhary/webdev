@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <input type="number" id="min" placeholder="Min" value="0">
+  <input type="number" id="sec" placeholder="Sec" value="10">
+  <button id="start">Start</button>
+  <button id="pause">Pause</button>
+  <button id="reset">Reset</button>
+  <h2 id="display">00:10</h2>
+
+<script>
+  let timeLeft = 10;      // total seconds
+  let timer = null;       // interval id
+
+  const display = document.getElementById("display");
+
+  function show() {
+    const m = Math.floor(timeLeft / 60);
+    const s = timeLeft % 60;
+    display.textContent =
+      String(m).padStart(2, "0") + ":" + String(s).padStart(2, "0");
+  }
+
+  function start() {
+    if (timer) return;                 // already running
+    const m = +document.getElementById("min").value;
+    const s = +document.getElementById("sec").value;
+    timeLeft = m * 60 + s;
+    show();
+
+    timer = setInterval(() => {
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        timer = null;
+        alert("Time's up!");
+        return;
+      }
+      timeLeft--;
+      show();
+    }, 1000);
+  }
+
+  function pause() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  function reset() {
+    clearInterval(timer);
+    timer = null;
+    timeLeft = 10;
+    show();
+  }
+
+  document.getElementById("start").addEventListener("click", start);
+  document.getElementById("pause").addEventListener("click", pause);
+  document.getElementById("reset").addEventListener("click", reset);
+
+  show();
+</script>
+</body>
+</html>
