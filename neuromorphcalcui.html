@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+  :root {
+    --bg: #e0e5ec;
+    --light: #ffffff;
+    --dark: #a3b1c6;
+    --blur: 8px;
+    --offset: 5px;
+  }
+
+  body {
+    background: var(--bg);
+    display: flex;
+    justify-content: center;
+    padding: 40px;
+    font-family: sans-serif;
+  }
+
+  .calc {
+    background: var(--bg);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow:
+      var(--offset) var(--offset) var(--blur) var(--dark),
+      calc(-1 * var(--offset)) calc(-1 * var(--offset)) var(--blur) var(--light);
+  }
+
+  .screen {
+    background: var(--bg);
+    height: 60px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    text-align: right;
+    padding: 10px;
+    font-size: 24px;
+    box-shadow: inset var(--offset) var(--offset) var(--blur) var(--dark),
+                inset calc(-1 * var(--offset)) calc(-1 * var(--offset)) var(--blur) var(--light);
+  }
+
+  .keys {
+    display: grid;
+    grid-template-columns: repeat(4, 60px);
+    gap: 12px;
+  }
+
+  button {
+    height: 60px;
+    border: none;
+    border-radius: 12px;
+    background: var(--bg);
+    font-size: 18px;
+    cursor: pointer;
+    box-shadow:
+      var(--offset) var(--offset) var(--blur) var(--dark),
+      calc(-1 * var(--offset)) calc(-1 * var(--offset)) var(--blur) var(--light);
+  }
+
+  button:active {
+    box-shadow: inset var(--offset) var(--offset) var(--blur) var(--dark),
+                inset calc(-1 * var(--offset)) calc(-1 * var(--offset)) var(--blur) var(--light);
+  }
+</style>
+</head>
+<body>
+
+  <div class="calc">
+    <div class="screen">0</div>
+    <div class="keys">
+      <button>7</button><button>8</button><button>9</button><button>/</button>
+      <button>4</button><button>5</button><button>6</button><button>*</button>
+      <button>1</button><button>2</button><button>3</button><button>-</button>
+      <button>0</button><button>.</button><button>=</button><button>+</button>
+    </div>
+  </div>
+
+</body>
+</html>
