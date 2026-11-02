@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <video id="video" width="400" src="sample.mp4"></video>
+  <br>
+  <button id="play">Play</button>
+  <input type="range" id="seek" min="0" max="100" value="0" step="0.1">
+  <span id="time">0 / 0</span>
+
+<script>
+  const video = document.getElementById("video");
+  const playBtn = document.getElementById("play");
+  const seek = document.getElementById("seek");
+  const timeEl = document.getElementById("time");
+
+  // Play / Pause toggle
+  playBtn.addEventListener("click", () => {
+    if (video.paused) {
+      video.play();
+      playBtn.textContent = "Pause";
+    } else {
+      video.pause();
+      playBtn.textContent = "Play";
+    }
+  });
+
+  // Update seek bar + time as video plays
+  video.addEventListener("timeupdate", () => {
+    seek.value = video.currentTime;
+    timeEl.textContent =
+      Math.floor(video.currentTime) + " / " + Math.floor(video.duration || 0);
+  });
+
+  // When user drags seek bar
+  seek.addEventListener("input", () => {
+    video.currentTime = seek.value;
+  });
+
+  // Set max when metadata loads
+  video.addEventListener("loadedmetadata", () => {
+    seek.max = video.duration;
+  });
+</script>
+</body>
+</html>
